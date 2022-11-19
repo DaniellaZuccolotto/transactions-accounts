@@ -2,39 +2,40 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('transactions', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
         type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
       },
       debitedAccountId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        allowNull: false,
+        foreignKey: true,
         references: {
           model: 'accounts',
-          key: 'id'
-        }
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       creditedAccountId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        allowNull: false,
+        foreignKey: true,
         references: {
           model: 'accounts',
-          key: 'id'
-        }
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       value: {
+        type: Sequelize.DECIMAL(10,2),
         allowNull: false,
-        type: Sequelize.INTEGER,
       },
       createdAt: {
+        type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.fn('now'),
-        type: Sequelize.DATE
       },
     });
   },

@@ -2,10 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import { ILogin } from '../interfaces/IUser';
 import LoginService from '../services/LoginService';
 
-interface NewRequest extends Request {
-  userRole?: string,
-}
-
 export default class LoginController {
   private loginService: LoginService;
 
@@ -27,6 +23,6 @@ export default class LoginController {
     if (message) {
       return next({ message });
     }
-    return res.status(200).json({ data });
+    return res.status(code).json({ data });
   };
 }

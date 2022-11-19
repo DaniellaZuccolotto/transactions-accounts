@@ -7,4 +7,3 @@ export interface IUser extends ILogin {
   accountId: number,
   id?:number
 }
-

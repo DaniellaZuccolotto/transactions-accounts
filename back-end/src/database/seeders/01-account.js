@@ -3,6 +3,7 @@ module.exports = {
     await queryInterface.bulkInsert('accounts', [
       { balance: 100 },
       { balance: 100 },
+      { balance: 100 },
     ], {});
   },
 

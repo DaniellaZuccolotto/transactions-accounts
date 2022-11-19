@@ -13,6 +13,12 @@ module.exports = {
         accountId: 2,
         // Dani1234
       },
+      {
+        username: 'Gui',
+        password: 'a16c4bd28a1e57094f4d465bc0299214',
+        accountId: 3,
+        // Dani1234
+      },
     ], {});
   },
 

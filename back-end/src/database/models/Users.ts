@@ -1,6 +1,5 @@
 import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
-import Accounts from './Accounts';
 
 class Users extends Model {
   id!: number;
@@ -17,11 +16,12 @@ Users.init({
     autoIncrement: true,
   },
   username: {
-    type: STRING(30),
+    type: STRING,
     allowNull: false,
   },
   password: {
-    type: STRING(100),
+    type: STRING,
+    allowNull: false,
   },
   accountId: {
     type: INTEGER,
@@ -30,16 +30,13 @@ Users.init({
     onUpdate: 'CASCADE',
     references: {
       model: 'accounts',
-      key: 'id'
-    }
-  }
+      key: 'id',
+    },
+  },
 }, {
   sequelize: db,
   modelName: 'users',
   timestamps: false,
 });
-
-// Users.hasOne(Accounts, { foreignKey: 'accountId', as: 'account' });
-// Accounts.belongsTo(Users, { foreignKey: 'accountId', as: 'user' });
 
 export default Users;

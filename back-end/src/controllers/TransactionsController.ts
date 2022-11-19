@@ -1,24 +1,27 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import TransactionsService from '../services/TransactionsService';
+import { Transaction } from '../interfaces/Transaction';
+import { FindTransaction } from '../interfaces/FindTransaction';
 
-interface NewRequest {
-  usernameD: string,
-  usernameC: string,
-  value: number,
-}
-
-export default class LoginController {
+export default class TransactionsController {
   private transactionsService: TransactionsService;
 
   constructor() {
     this.transactionsService = new TransactionsService();
   }
 
-  createTransaction = async (req: Request, res: Response, next: NextFunction) => {
-    const { usernameC, usernameD, value } = req.body as NewRequest;
-    console.log(req.body);
-    
-    const { code, message } = await this.transactionsService.createTransaction(usernameD, usernameC, value);
+  createTransaction = async (req: Request, res: Response) => {
+    const { usernameC, usernameD, value } = req.body as Transaction;
+    const { code, message } = await this
+      .transactionsService.createTransaction(usernameD, usernameC, value);
     res.status(code).json({ message });
+  };
+
+  findTransactions = async (req: Request, res: Response) => {
+    const { search, type } = req.query as unknown as FindTransaction;
+
+    const { code, message, transactions } = await this
+      .transactionsService.findTransactions(search, type);
+    res.status(code).json({ message, transactions });
   };
 }
