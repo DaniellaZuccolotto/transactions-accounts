@@ -3,12 +3,14 @@ import error from '../middlewares/error';
 import LoginRouter from '../routers/LoginRouter';
 import AccountsRouter from '../routers/AccountsRouter';
 import TransactionsRouter from '../routers/TransactionsRouter';
+import * as cors from 'cors';
 
 class App {
   public app: express.Express;
 
   constructor() {
     this.app = express();
+    this.app.use(cors());
     this.config();
 
     this.app.use(LoginRouter);
