@@ -5,7 +5,7 @@ export default class AccountsService {
     private accountModel = new AccountModel(),
   ) { }
 
-  getUserAccount = async (id: number) => {
+  getUserAccount = async (id: number) => {  
     const account = await this.accountModel.findOne(id);
     return { code: 200, account };
   };

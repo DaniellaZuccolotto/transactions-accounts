@@ -15,14 +15,19 @@ export default class LoginController {
     if (message) {
       return next({ code, message });
     }
-    return res.status(code).json({ data });
+    return res.status(code).json(data);
   };
 
   createUser = async (req: Request, res: Response, next: NextFunction) => {
     const { data, code, message } = await this.loginService.createUser(req.body);
     if (message) {
-      return next({ message });
+      return next({ code, message });
     }
-    return res.status(code).json({ data });
+    return res.status(code).json(data);
+  };
+
+  findAll = async (_req: Request, res: Response) => {
+    const { code, data } = await this.loginService.findAll();
+    res.status(code).json(data);
   };
 }

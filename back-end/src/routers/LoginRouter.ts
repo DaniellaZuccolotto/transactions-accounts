@@ -7,5 +7,6 @@ const loginController = new LoginController();
 
 router.post('/login', loginController.login);
 router.post('/register', loginMiddleware, loginController.createUser);
+router.get('/users', loginController.findAll);
 
 export default router;

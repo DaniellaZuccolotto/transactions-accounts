@@ -24,4 +24,12 @@ export default class TransactionsController {
       .transactionsService.findTransactions(search, type);
     res.status(code).json({ message, transactions });
   };
+
+  findTransactionsUser = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    
+    const { code, message, transactions } = await this
+      .transactionsService.findTransactionsUser(Number(id));
+    res.status(code).json(transactions);
+  };
 }

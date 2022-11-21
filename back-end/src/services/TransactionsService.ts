@@ -17,11 +17,11 @@ export default class TransactionService {
     if (!balanceCred || !balanceDeb) {
       return { code: 401, message: 'Incorrect email or password' };
     }
-    if (Number(balanceDeb.balance) < value || value < 0) {
+    if (Number(balanceDeb.balance) < Number(value) || Number(value) < 0) {
       return { code: 400, message: 'Insufficient funds' };
     }
-    const newBalanceDeb = Number(balanceDeb.balance) - value;
-    const newBalanceCred = Number(balanceCred.balance) + value;
+    const newBalanceDeb = Number(balanceDeb.balance) - Number(value);
+    const newBalanceCred = Number(balanceCred.balance) + Number(value);
     return { newBalanceDeb, newBalanceCred };
   };
 
@@ -34,13 +34,15 @@ export default class TransactionService {
   };
 
   createTransaction = async (usernameD: string, usernameC: string, value: number): Promise<any> => {
-    const { userDeb, userCred } = await this.verifyUser(usernameD, usernameC);
-    const { newBalanceDeb, newBalanceCred } = await this.verifyBalance(userDeb, userCred, value);
+    const checkUser = await this.verifyUser(usernameD, usernameC);
+    if (checkUser.code) return checkUser;
+    const checkBal = await this.verifyBalance(checkUser.userDeb, checkUser.userCred, value);
+    if (checkBal.code) return checkBal; 
     const t = await sequelize.transaction();
     try {
-      await this.accountModel.updateBalance(userDeb.id, newBalanceDeb, t);
-      await this.accountModel.updateBalance(userCred.id, newBalanceCred, t);
-      await this.transactionsModel.createTransaction(userDeb.id, userCred.id, value, t);
+      await this.accountModel.updateBalance(checkUser.userDeb.id, checkBal.newBalanceDeb, t);
+      await this.accountModel.updateBalance(checkUser.userCred.id, checkBal.newBalanceCred, t);
+      await this.transactionsModel.createTransaction(checkUser.userDeb.id, checkUser.userCred.id, value, t);
       await t.commit();
       return { code: 200, message: 'Transaction successful' };
     } catch (error) {
@@ -53,5 +55,11 @@ export default class TransactionService {
     const transactions = await this.transactionsModel.findTransactions(search, type);
     if (!transactions) return { code: 404, message: 'Transactions not found' };
     return { code: 200, message: 'Transaction found', transactions };
+  };
+
+  findTransactionsUser = async (id: number): Promise<any> => {  
+    const transactions = await this.transactionsModel.findTransactionsUser(id);
+    if (!transactions) return { code: 404, message: 'Transactions not found' };
+       return { code: 200, message: 'Transaction found', transactions };
   };
 }

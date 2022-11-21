@@ -1,4 +1,5 @@
 import { Transaction } from 'sequelize/types';
+import { Op } from "sequelize";
 import Transactions from '../database/models/Transactions';
 
 class TransactionsModelSequelize {
@@ -14,6 +15,16 @@ class TransactionsModelSequelize {
         break;
     }
     return null;
+  };
+
+  findTransactionsUser = async (id: number): Promise<Transactions[] | null> => {
+    return Transactions.findAll({ where: {
+      [Op.or]: [
+        { debitedAccountId: id },
+        { creditedAccountId: id }
+      ]
+    } },
+    );
   };
 
   createTransaction = async (

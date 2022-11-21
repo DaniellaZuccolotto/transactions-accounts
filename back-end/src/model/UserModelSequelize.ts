@@ -8,8 +8,15 @@ export default class UserModelSequelize {
     return user;
   };
 
+  findById = async (id:number): Promise<IUser | null> => {
+    const user = await Users.findOne({ where: { id } });
+    return user;
+  };
+
   findAll = async (): Promise<IUser[]> => {
-    const users = await Users.findAll();
+    const users = await Users.findAll({
+      attributes: ['username', 'accountId'],
+    });
     return users;
   };
 

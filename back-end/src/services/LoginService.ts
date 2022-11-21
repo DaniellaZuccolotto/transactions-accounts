@@ -23,7 +23,13 @@ export default class LoginService {
     }
 
     const token = createToken(user.username);
-    return { code: 202, data: { username: user.username, token } };
+    const returnUser = {
+      id: userResponse.id,
+      username: userResponse.username,
+      accountId: userResponse.accountId,
+      token
+    };
+    return { code: 202, data: returnUser };
   };
 
   sequelizeTransaction = async (username: string, password: string) => {
@@ -34,7 +40,7 @@ export default class LoginService {
       await this.userModel.createUser(username, md5(password), id, t);
       await t.commit();
       const token = createToken(username);
-      return { code: 201, data: { username, token } };
+      return { code: 201, data: { id, username, token, accountId: id } };
     } catch (error) {
       await t.rollback();
       return { code: 500, message: error };
@@ -48,5 +54,11 @@ export default class LoginService {
     if (userResponse) return { code: 409, message: 'User already registered' };
     const userCreate = this.sequelizeTransaction(username, password);
     return userCreate;
+  };
+
+  findAll = async () => {
+    const users = await this.userModel.findAll();
+    if (!users) return { code: 404, message: 'Users not found' };
+    return { code: 200, data: users };
   };
 }
