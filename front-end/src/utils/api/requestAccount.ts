@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const getUserAccount = async (id: string, token: string) => {
-  try {
-    console.log(id);
-    
+  try {   
     const URL = `http://localhost:3001/account/${id}`;
     const response = await axios.get(URL, {
       headers: {

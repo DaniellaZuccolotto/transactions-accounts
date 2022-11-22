@@ -7,6 +7,8 @@ export interface ContextInterface {
   setAccountUser: Dispatch<IAccount>;
   transactions: ITransactionGet[];
   setTransactions: Dispatch<ITransactionGet[]>;
+  users: any; 
+  setUsers: Dispatch<any>;
 }
 
 const Context = createContext<ContextInterface | null>(null);
