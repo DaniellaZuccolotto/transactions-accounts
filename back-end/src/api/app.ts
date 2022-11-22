@@ -1,9 +1,9 @@
 import * as express from 'express';
+import * as cors from 'cors';
 import error from '../middlewares/error';
 import LoginRouter from '../routers/LoginRouter';
 import AccountsRouter from '../routers/AccountsRouter';
 import TransactionsRouter from '../routers/TransactionsRouter';
-import * as cors from 'cors';
 
 class App {
   public app: express.Express;

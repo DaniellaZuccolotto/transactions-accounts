@@ -6,7 +6,7 @@ const router = Router();
 const transactionsController = new TransactionsController();
 
 router.post('/', auth, transactionsController.createTransaction);
-router.get('/:id', auth, transactionsController.findTransactionsUser);
 router.get('/find', auth, transactionsController.findTransactions);
+router.get('/:id', auth, transactionsController.findTransactionsUser);
 
 export default router;

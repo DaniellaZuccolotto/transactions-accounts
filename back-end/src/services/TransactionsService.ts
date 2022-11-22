@@ -8,7 +8,7 @@ export default class TransactionService {
   constructor(
     private userModel = new UserModel(),
     private accountModel = new AccountModel(),
-    private transactionsModel = new Transactions(),
+    private transactionModel = new Transactions(),
   ) { }
 
   verifyBalance = async (userDeb: IUser, userCred: IUser, value: number): Promise<any> => {
@@ -27,22 +27,22 @@ export default class TransactionService {
 
   verifyUser = async (usernameD: string, usernameC: string): Promise<any> => {
     if (usernameD === usernameC) return { code: 400, message: 'You cannot transfer to yourself' };
-    const userDeb = await this.userModel.findOne(usernameD);
-    const userCred = await this.userModel.findOne(usernameC);
-    if (!userDeb || !userCred) return { code: 401, message: 'User not exists' };
-    return { userDeb, userCred };
+    const uDeb = await this.userModel.findOne(usernameD);
+    const uCre = await this.userModel.findOne(usernameC);
+    if (!uDeb || !uCre) return { code: 401, message: 'User not exists' };
+    return { uDeb, uCre };
   };
 
-  createTransaction = async (usernameD: string, usernameC: string, value: number): Promise<any> => {
+  createTransaction = async (usernameD: string, usernameC: string, value: number) => {
     const checkUser = await this.verifyUser(usernameD, usernameC);
     if (checkUser.code) return checkUser;
     const checkBal = await this.verifyBalance(checkUser.userDeb, checkUser.userCred, value);
-    if (checkBal.code) return checkBal; 
+    if (checkBal.code) return checkBal;
     const t = await sequelize.transaction();
     try {
-      await this.accountModel.updateBalance(checkUser.userDeb.id, checkBal.newBalanceDeb, t);
-      await this.accountModel.updateBalance(checkUser.userCred.id, checkBal.newBalanceCred, t);
-      await this.transactionsModel.createTransaction(checkUser.userDeb.id, checkUser.userCred.id, value, t);
+      await this.accountModel.updateBalance(checkUser.uDeb.id, checkBal.newBalanceDeb, t);
+      await this.accountModel.updateBalance(checkUser.uCre.id, checkBal.newBalanceCred, t);
+      await this.transactionModel.createTransaction(checkUser.uDeb.id, checkUser.uCre.id, value, t);
       await t.commit();
       return { code: 200, message: 'Transaction successful' };
     } catch (error) {
@@ -51,15 +51,15 @@ export default class TransactionService {
     }
   };
 
-  findTransactions = async (search: string, type: string): Promise<any> => {
-    const transactions = await this.transactionsModel.findTransactions(search, type);
+  findTransactions = async (search: string, type: string) => {
+    const transactions = await this.transactionModel.findTransactions(search, type);
     if (!transactions) return { code: 404, message: 'Transactions not found' };
-    return { code: 200, message: 'Transaction found', transactions };
+    return { code: 200, transactions };
   };
 
-  findTransactionsUser = async (id: number): Promise<any> => {  
-    const transactions = await this.transactionsModel.findTransactionsUser(id);
+  findTransactionsUser = async (id: number) => {
+    const transactions = await this.transactionModel.findTransactionsUser(id);
     if (!transactions) return { code: 404, message: 'Transactions not found' };
-       return { code: 200, message: 'Transaction found', transactions };
+    return { code: 200, transactions };
   };
 }

@@ -1,5 +1,5 @@
 import { Transaction } from 'sequelize/types';
-import { Op } from "sequelize";
+import { Op } from 'sequelize';
 import Transactions from '../database/models/Transactions';
 
 class TransactionsModelSequelize {
@@ -10,22 +10,20 @@ class TransactionsModelSequelize {
       case 'creditedAccountId':
         return Transactions.findAll({ where: { creditedAccountId: search } });
       case 'createdAt':
-        return Transactions.findAll({ where: { createdAt: search } });
+        return Transactions.findAll();
       default:
         break;
     }
     return null;
   };
 
-  findTransactionsUser = async (id: number): Promise<Transactions[] | null> => {
-    return Transactions.findAll({ where: {
-      [Op.or]: [
-        { debitedAccountId: id },
-        { creditedAccountId: id }
-      ]
-    } },
-    );
-  };
+  findTransactionsUser = async (id: number):
+  Promise<Transactions[] | null> => Transactions.findAll({ where: {
+    [Op.or]: [
+      { debitedAccountId: id },
+      { creditedAccountId: id },
+    ],
+  } });
 
   createTransaction = async (
     debitedAccountId: number,
