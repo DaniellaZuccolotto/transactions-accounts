@@ -51,3 +51,8 @@ npm run compose:down // para parar os containers
 |---|---|---|
 | `Guilherme de Souza` | Gui12345 | 
 
+### Endpoints do back-end
+<a href='https://github.com/DaniellaZuccolotto/transactions-accounts/tree/main/back-end'>README do Back</a>
+
+
+
