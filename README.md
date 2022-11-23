@@ -43,20 +43,11 @@ npm run compose:down // para parar os containers
 ### A aplicação já tem alguns usuários criados:
 
 #### Users
-| Método | Funcionalidade | URL |
-|---|---|---|
-| `GET` | Retorno todos os usuários cadastrados | http://localhost:3000/users |
-|---|---|---|
-| `POST` | Realiza o registro de um usuário | http://localhost:3000/users |
-|---|---|---|
-| `PUT` | Realiza o update do usuário | http://localhost:3000/users/:id |
-|---|---|---|
-| `DELETE` | Remove um usuário | http://localhost:3000/users/:id |
-
-| Usuário | Senha |
-|---|---|---|
+| Usuário | Senha | |
+|---|---|---
 | `Felipe da Silva` | Gui12345 |
 |---|---|---|
-| `Daniela dos Santos` | Dani1234 |
+| `Daniela dos Santos` | Dani1234 | 
 |---|---|---|
-| `Guilherme de Souza` | Gui12345 |
+| `Guilherme de Souza` | Gui12345 | 
+
