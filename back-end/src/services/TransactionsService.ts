@@ -36,7 +36,7 @@ export default class TransactionService {
   createTransaction = async (usernameD: string, usernameC: string, value: number) => {
     const checkUser = await this.verifyUser(usernameD, usernameC);
     if (checkUser.code) return checkUser;
-    const checkBal = await this.verifyBalance(checkUser.userDeb, checkUser.userCred, value);
+    const checkBal = await this.verifyBalance(checkUser.uDeb, checkUser.uCre, value);
     if (checkBal.code) return checkBal;
     const t = await sequelize.transaction();
     try {

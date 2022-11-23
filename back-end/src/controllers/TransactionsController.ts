@@ -10,7 +10,7 @@ export default class TransactionsController {
     this.transactionsService = new TransactionsService();
   }
 
-  createTransaction = async (req: Request, res: Response) => {
+  createTransaction = async (req: Request, res: Response) => {      
     const { usernameC, usernameD, value } = req.body as Transaction;
 
     const { code, message } = await this
