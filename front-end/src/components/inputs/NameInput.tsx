@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { input } from '../../styles/LoginPageStyles';
 
 interface Register {
   register: any;
@@ -13,8 +14,9 @@ function NameInput({ register }: Register) {
     >
       <input
         id="name"
+        className="w-48 h-8 text-center shadow-md shadow-slate-500"
         type="name"
-        placeholder="User Name"
+        placeholder="Nome do Usuário"
         { ...register('username') }
       />
 

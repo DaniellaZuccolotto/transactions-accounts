@@ -53,29 +53,37 @@ function TableTransactions() {
   
   return (
     <div>
-      <CheckBoxInput selectUser={ selectUser } name="Todos" type="createdAt" />
-      <CheckBoxInput selectUser={ selectUser } name="Cash-in" type="creditedAccountId" />
-      <CheckBoxInput selectUser={ selectUser } name="Cash-out" type="debitedAccountId" />
-      <form onSubmit={handleSubmit(onSubmit)} >
-        <DateFilterInput  register={ register }/>
-        <button type="submit">Send</button>
-      </form>
-    <table>
-      <thead>
-        <tr>
-        {Thead.map((item) => <th key={item}>{item}</th>)}
+      <aside className="flex flex-col justify-center items-center h-24">
+        <div className="flex justify-evenly h-10">
+          <CheckBoxInput selectUser={ selectUser } name="Todos" type="createdAt" />
+          <CheckBoxInput selectUser={ selectUser } name="Cash-in" type="creditedAccountId" />
+          <CheckBoxInput selectUser={ selectUser } name="Cash-out" type="debitedAccountId" />
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)} >
+          <DateFilterInput  register={ register }/>
+          <button
+            className="self-center w-52 h-8 bg-[#1194f6] text-white text-sm"
+          type="submit">Buscar</button>
+        </form>
+      </aside>
+    <table className="flex flex-col">
+      <thead className="flex self-center w-[42rem] h-10 shadow-md">
+        <tr className="flex justify-evenly w-[42rem] h-10">
+        {Thead.map((item) => <th className="w-56" key={item}>{item}</th>)}
         </tr>
       </thead>
-      <tbody>
+      <tbody className="flex flex-col self-center w-[42rem] shadow-md">
          { !transactions || !users ? <tr><td>Carregando...</td></tr> :
             transactions.map((transaction, i) => (
-            <tr key={i}>
-              <td>{ users.find((user: any) => user.accountId === transaction.creditedAccountId ).username }</td>
-              <td>
+            <tr
+            className="flex justify-evenly items-center w-[42rem] h-10 shadow-md"
+            key={i}>
+              <td className="w-56 text-center">{ users.find((user: any) => user.accountId === transaction.creditedAccountId ).username }</td>
+              <td className="w-56 text-center">
               { users.find((user: any) => user.accountId === transaction.debitedAccountId ).username }
               </td>
-              <td>{transaction.value}</td>
-              <td>{ dateFormater(transaction.createdAt) }</td>
+              <td className="w-56 text-center">{transaction.value}</td>
+              <td className="w-56 text-center">{ dateFormater(transaction.createdAt) }</td>
             </tr>
           ))}
       </tbody>

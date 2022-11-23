@@ -5,10 +5,12 @@ import { ISelect } from '../../interfaces/ISelect';
 function CheckBoxInput({ selectUser, name, type }: ISelect) {
   return (
     <label
+      className="w-32"
       htmlFor={ name }
     >      
       <input
         id={ name }
+        className="mr-2"
         type="radio"
         name="selectUser"
         onClick={ () => selectUser(type) }

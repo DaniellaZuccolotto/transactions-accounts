@@ -13,6 +13,7 @@ function DateFilterInput({ register }: Register) {
     >
       <input
         id="data"
+        className="w-48 h-8 text-center text-gray-500"
         type="date"
         placeholder="Data"
         { ...register('search') }

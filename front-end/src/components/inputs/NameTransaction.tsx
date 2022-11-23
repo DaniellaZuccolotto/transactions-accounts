@@ -12,9 +12,10 @@ function NameTransaction({ register }: Register) {
       htmlFor="usernameC"
     >
       <input
+      className="w-52 h-8 text-center shadow-md shadow-slate-500 mt-2"
         id="usernameC"
         type="usernameC"
-        placeholder="Nome para a transação"
+        placeholder="Nome do beneficiado"
         { ...register('usernameC') }
       />
 

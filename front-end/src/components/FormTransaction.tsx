@@ -7,7 +7,7 @@ import createTransaction from '../utils/api/requestTransaction';
 function FormTransaction() {
   const { register, handleSubmit } = useForm<IDataTransaction>();
 
-  const onSubmit = async (data: IDataTransaction) => {
+  const onSubmit = async (data: IDataTransaction) => {    
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const body = {
       usernameD: user.username,
@@ -26,13 +26,16 @@ function FormTransaction() {
   };
 
   return (
-    <section>
+    <section className="mt-4 h-36 flex flex-col">
       <form
+        className='flex flex-col items-center justify-evenly'
         onSubmit={handleSubmit(onSubmit)}
       >
         <NameTransaction register={ register } />
         <ValueInput register={ register } />
-        <button type="submit">Realizar Transferência</button>
+        <button
+        className="self-center w-52 h-8 bg-[#1194f6] text-white text-sm mt-4"
+        type="submit">Tranferir</button>
       </form>
     </section>
   );

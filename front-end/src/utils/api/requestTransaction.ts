@@ -2,6 +2,7 @@ import axios from 'axios';
 import { ITransaction } from '../../interfaces/ITransaction';
 
 const createTransaction = async (body: ITransaction, token: string) => {
+  console.log('body', body);  
   try { 
     const URL = 'http://localhost:3001/transactions';
     const response = await axios.post(
