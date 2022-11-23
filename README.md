@@ -1,6 +1,6 @@
-# Projeto Accounts Transactions 📝🗒
+# Projeto Accounts Transactions 💸:dollar:
 
-Aplicação web construída contendo informações de usuários, de contas e transações, em que é possível visualizar o usuário, criar um novo usuário com uma nova conta, visualizar o saldo, visualizar histórico de transações e realizar novas transações.
+Aplicação web construída contendo informações de usuários, contas e transações, em que é possível visualizar o usuário, criar um novo usuário com uma nova conta, visualizar o saldo, visualizar histórico de transações, filtrar e realizar novas transações.
 
 * Construída com TypeScript, HTML, React, Context API, Hooks, Tailwind, Node.js, Express, Sequelize com Postgres e Docker.
 * Utilizando as práticas do REST
