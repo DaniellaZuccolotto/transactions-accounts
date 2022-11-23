@@ -56,8 +56,8 @@ function TableTransactions() {
       <aside className="flex flex-col justify-center items-center h-24">
         <div className="flex justify-evenly h-10">
           <CheckBoxInput selectUser={ selectUser } name="Todos" type="createdAt" />
-          <CheckBoxInput selectUser={ selectUser } name="Cash-in" type="creditedAccountId" />
-          <CheckBoxInput selectUser={ selectUser } name="Cash-out" type="debitedAccountId" />
+          <CheckBoxInput selectUser={ selectUser } name="Cash-out" type="creditedAccountId" />
+          <CheckBoxInput selectUser={ selectUser } name="Cash-in" type="debitedAccountId" />
         </div>
         <form onSubmit={handleSubmit(onSubmit)} >
           <DateFilterInput  register={ register }/>

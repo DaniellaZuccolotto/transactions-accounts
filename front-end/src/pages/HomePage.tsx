@@ -32,9 +32,6 @@ function HomePage() {
         <button
           className="self-center w-52 h-8 bg-[#1194f6] text-white text-sm" 
         type="button" onClick={() => { setTransfer(!transfer) }}>Transferir</button>
-        <button
-           className="self-center w-52 h-8 bg-[#1194f6] text-white text-sm"
-          type="button" onClick={() => { setTransactions(!transactions) }}>Visualizar Transações</button>
         <ButtonNavigate navigate="/" name="Sair" />
       </main>
       <article 
